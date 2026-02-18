@@ -1,5 +1,7 @@
 package com.example.cs101_test.exercises
 
+import androidx.compose.material3.FabPosition
+
 object Part4InheritanceAndAccessModification {
     // ---------------------- EXERCISE 1
     // Create a base/open class called Appliance with 3 properties: brand, powerConsumption, and isOn
@@ -39,7 +41,48 @@ object Part4InheritanceAndAccessModification {
     // Implement the method work() for all classes, which prints a message indicating the type of work the employee is doing
     // E.g. an Employee.work() should print one thing and Developer.work() another
     // The work() method must print something and not be blank, but you can choose what you want it to print!
+    open class Employee(
+        val name: String,
+        val position: String,
+        var salary: Double
+    ) {
+        open fun work() {
+            println("$name is working as a $position.")
+        }
+    }
 
+    class Manager(
+        name: String,
+        salary: Double,
+        val department: String
+    ) : Employee(name, "Manager", salary) {
+
+        override fun work() {
+            println("$name is managing the $department department.")
+        }
+    }
+
+    class Developer(
+        name: String,
+        salary: Double,
+        val programmingLanguage: String
+    ) : Employee(name, "Developer", salary) {
+
+        override fun work() {
+            println("$name is developing using $programmingLanguage.")
+        }
+    }
+
+    class Intern(
+        name: String,
+        salary: Double,
+        val school: String
+    ) : Employee(name, "Intern", salary) {
+
+        override fun work() {
+            println("$name is interning from $school.")
+        }
+    }
 
     // ---------------------- EXERCISE 3
     // Create a class named Course to represent course information
@@ -58,6 +101,22 @@ object Part4InheritanceAndAccessModification {
     //             field = if (value in 0..150) value else 0
     //         }
     // }
+    class Course(
+        val courseName: String,
+        val instructor: String
+    ) {
+
+        var credits: Int = 1
+            set(value) {
+                if (value in 1..5) {
+                    field = value
+                }
+            }
+
+        val courseDuration: Int
+            get() = credits * 15
+    }
+
 
 
     // ---------------------- EXERCISE 4
@@ -66,6 +125,18 @@ object Part4InheritanceAndAccessModification {
     // To make calculateFitnessLevel easy to implement, just make it return an Int between 0 and 100 - you choose how to calculate it!
     // The class should have a public field fitnessLevel which uses the private function to return a result.
     // The setter for fitnessLevel should be private
+    class Athlete(
+        val id: String,
+        val name: String
+    ) {
+
+        private fun calculateFitnessLevel(): Int {
+            return 75
+        }
+
+        var fitnessLevel: Int = calculateFitnessLevel()
+            private set
+    }
 
 
 }
